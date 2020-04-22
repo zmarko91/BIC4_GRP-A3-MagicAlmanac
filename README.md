@@ -48,8 +48,8 @@ Register your components in ```/resources/views/js/app.js``` and use them in the
       * ```/resources/views/spell/show.blade.php```
       
 To query data for dropdowns in forms or to reload lists use the list routes:
- * GET /list/kind
- * GET /list/spell
+ * **GET** ```/list/spell```
+ * **GET** ```/list/kind```
  
 For the search form use ```q``` as the name for the text input.
 The search will be handled by the backend.
