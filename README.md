@@ -10,21 +10,21 @@ It is possible to search for spells by various parameters.
 ### Already providing
 
  * All routes that are needed are implemented:
-     * GET /spell &rarr; Lists all spells
-     * GET /list/spell &rarr; Returns JSON of all spells
-     * GET /list/kind &rarr; Returns JSON of all kinds
-     * POST /spell &rarr; Stores new spells
-     * GET /spell/{slug} &rarr; Show spell
-     * PUT /spell/{slug} &rarr; Update invention
-     * GET /spell/{slug}/edit &rarr; Edit spell
-     * GET /search/spell &rarr; Search spells
-     * POST /search/spell &rarr; Query spells
-     * GET /kind &rarr; Lists all kinds
-     * GET /list/kind &rarr; Returns JSON of all kinds
-     * POST /kind &rarr; Stores new kinds
-     * GET /kind/{slug} &rarr; Show kind
-     * PUT /kind/{slug} &rarr; Update kind
-     * GET /kind/{slug}/edit &rarr; Edit kind
+     * **GET** ```/spell``` &rarr; Lists all spells
+     * **GET** ```/list/spell``` &rarr; Returns JSON of all spells
+     * **GET** ```/list/kind``` &rarr; Returns JSON of all kinds
+     * **POST** ```/spell``` &rarr; Stores new spells
+     * **GET** ```/spell/{slug}``` &rarr; Show spell
+     * **PUT** ```/spell/{slug}``` &rarr; Update invention
+     * **GET** ```/spell/{slug}/edit``` &rarr; Edit spell
+     * **GET** ```/search/spell``` &rarr; Search spells
+     * **POST** ```/search/spell``` &rarr; Query spells
+     * **GET** ```/kind``` &rarr; Lists all kinds
+     * **GET** ```/list/kind``` &rarr; Returns JSON of all kinds
+     * **POST** ```/kind``` &rarr; Stores new kinds
+     * **GET** ```/kind/{slug}``` &rarr; Show kind
+     * **PUT** ```/kind/{slug}``` &rarr; Update kind
+     * **GET** ```/kind/{slug}/edit``` &rarr; Edit kind
 
 All views can be found in ```/resources/views```.
 
