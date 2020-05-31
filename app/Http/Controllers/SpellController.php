@@ -128,7 +128,7 @@ class SpellController extends Controller
             'q' => 'required'
         ])['q'];
 
-        return Invention::query()
+        return Spell::query()
             ->where('name', 'LIKE', "%{$search}%")
             ->orWhere('description', 'LIKE', "%{$search}%")
             ->orWhere('quote', 'LIKE', "%{$search}%")
