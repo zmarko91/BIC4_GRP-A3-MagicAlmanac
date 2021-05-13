@@ -1,127 +1,81 @@
-<!--<template>
-    <div class="container">
-        <div class="columns is-multiline">
-            <div class="column is-three-fifths is-offset-one-fifth">
-
-            </div>
-        </div>
-    </div>
-</template>
--->
-
 <template>
     <div class="container">
+        <hero :main-title="category.name" :sub-title="kind.description" />
         <div class="columns is-multiline">
-            <div class="card blog-card column is-half is-offset-one-quarter">
-                <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="'New kind'"/>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <query-message :success="form.isSuccess()" :fail="form.isFail()"
-                                       :message="form.failMessage || form.successMessage"></query-message>
-                        <form @submit.prevent="submit">
-                            <div class="field" v-if="!edit">
-                                <label class="label" for="name">Name</label>
-                                <div class="control">
-                                    <input id="name"
-                                           v-model="form.name"
-                                           class="input"
-                                           v-bind:class="{ 'is-danger': form.errors.has('name')}"
-                                           type="text" autofocus>
-                                </div>
-                                <p class="help is-danger" v-if="form.errors.has('name')"
-                                   v-text="form.errors.get('name')"/>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="description">Description</label>
-                                <div class="control">
-                                    <textarea id="description" v-model="form.description" class="textarea"></textarea>
-                                </div>
-                                <p class="help is-danger" v-if="form.errors.has('description')"
-                                   v-text="form.errors.get('description')"/>
-                            </div>
-
-                            <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
-                                    v-text="edit ? 'Update' : 'Save'" />
-                        </form>
-                    </div>
+            <div class="column is-three-fifths is-offset-one-fifth">
+                <div class="box custom-box" v-if="hasSpells">
+                    <spell-list :spell-list="this.kindSpells" :user="user" :show-kind="false" v-on:open-modal="setModal"></spell-list>
                 </div>
+                <error-box message="No spells found" v-if="!hasSpells"></error-box>
             </div>
         </div>
+        <delete-modal :title="modalTitle" :delete-url="modalUrl" :active="modalActive" :content="modalContent"
+                      :entry-id="modalId" v-on:close-modal="toggleModal"></delete-modal>
     </div>
 </template>
 
 <script>
-let form = new Form({
-    'category_id': '',
-    'name': '',
-    'description': ''
-});
+import SpellList from './SpellListComponent';
 
 export default {
-    name: "KindFormComponent",
+    name: "kindComponent",
     components: {
-        QueryMessage
-    },
-    props: {
-        isEditable: {
-            required: false,
-            type: Boolean,
-            default: false
-        },
-        currentKind: {
-            required: false,
-            type: Object
-        }
+        ErrorBox,
+        SpellList,
+        DeleteModal
     },
     data() {
         return {
-            edit: undefined,
-            form: form,
-            url: ''
+            modalActive: false,
+            modalTitle: '',
+            modalContent: '',
+            modalUrl: '',
+            modalId: 0,
+            successMessage: '',
+            kindSpells: []
         }
     },
     methods: {
-        submit() {
-            if (this.edit)
-                this.form
-                    .put(this.url);
-            else
-                this.form
-                    .post(this.url)
-                    .then(response => {
-                        //this.url = '/kinds/' + response.slug;
+        toggleModal(info) {
+            this.modalActive = !this.modalActive;
 
-                        this.form.kind_id = response.kind_id;
-                        this.form.name = response.name;
-                        this.form.description = response.description;
-
-                        this.form.noReset = ['kind_id', 'name', 'description'];
-
-                        this.edit = true;
-
-                        window.history.pushState("", "", this.url);
-                    });
+            if(info.id !== 0) {
+                this.kindSpells = _.remove(this.kindSpells, blg => blg.id !== info.id);
+                this.successMessage = info.message;
+            }
+        },
+        setModal(data) {
+            this.modalId = data.id;
+            this.modalTitle = data.title;
+            this.modalContent = data.content;
+            this.modalUrl = data.url;
+            this.toggleModal({id: 0});
+        }
+    },
+    props: {
+        kind: {
+            required: true
+        },
+        user: {
+            required: true
+        },
+        spells: {
+            required: true
         }
     },
     created() {
-        this.edit = this.isEditable;
-
-        if (this.edit) {
-            //this.url = '/category/' + this.currentKind.slug;
-
-            this.form.kind_id = this.currentKind.category_id;
-            this.form.name = this.currentKind.name;
-            this.form.description = this.currentKind.description;
-
-            this.form.noReset = ['kind_id', 'name', 'description'];
-        } else {
-            this.url = '/kinds';
+        this.kindSpells = this.spells;
+    },
+    computed: {
+        hasSpells() {
+            return !!this.kindSpells.length;
+        },
+        showSuccessMessage() {
+            return this.successMessage !== '';
         }
     }
-}</script>
+}
+</script>
 
 <style scoped>
 

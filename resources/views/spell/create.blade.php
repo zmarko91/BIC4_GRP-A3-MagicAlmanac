@@ -2,9 +2,7 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>Create spell</h1>
-        </div>
+    <section class="section is-fullheight">
+        <spell-form></spell-form>
     </section>
 @endsection

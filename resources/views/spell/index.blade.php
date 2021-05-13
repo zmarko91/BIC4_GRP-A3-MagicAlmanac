@@ -2,9 +2,7 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>List spells</h1>
-        </div>
+    <section class="section is-fullwidth">
+        <spells :all-spells="{{ $spells }}" :current-user="{{ Auth::user() }}"></spells>
     </section>
 @endsection

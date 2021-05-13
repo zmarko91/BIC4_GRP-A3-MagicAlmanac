@@ -2,9 +2,7 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>Edit spell</h1>
-        </div>
+    <section class="section is-fullheight">
+        <spell-form :is-editable="true" :current-spell="{{ $spell }}"></spell-form>
     </section>
 @endsection

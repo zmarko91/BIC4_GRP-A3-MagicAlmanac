@@ -3,6 +3,6 @@
 
 @section('content')
     <section class="section is-fullheight">
-        <kind></kind>
+        <kind-form></kind-form>
     </section>
 @endsection

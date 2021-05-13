@@ -2,9 +2,7 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>Show kind</h1>
-        </div>
+    <section class="section is-fullwidth">
+        <kind :kind="{{ $kind }}" :user="{{ Auth::user() }}" :blogs="{{ $kind->blogs->load(['user','messages']) }}"></kind>
     </section>
 @endsection

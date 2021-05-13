@@ -22,7 +22,17 @@ window.Vue = vue;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('query-message', require('./components/base/QueryMessage.vue').default);
-Vue.component('kind', require('./components/KindComponent').default);
+
+
+Vue.component('spells', require('./components/SpellsComponent.vue').default);
+Vue.component('spell', require('./components/SpellComponent.vue').default);
+Vue.component('spell-form', require('./components/SpellFormComponent.vue').default);
+Vue.component('kinds', require('./components/KindsComponent.vue').default);
+Vue.component('kind', require('./components/KindComponent.vue').default);
+Vue.component('kind-form', require('./components/KindFormComponent.vue').default);
+Vue.component('dashboard', require('./components/DashboardComponent.vue').default);
+// Vue.component('replies', require('./components/RepliesComponent.vue').default);
+Vue.component('hero', require('./components/base/HeroComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
