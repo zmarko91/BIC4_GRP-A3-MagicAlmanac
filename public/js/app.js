@@ -2681,6 +2681,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpellListComponent",
   props: {
@@ -43305,7 +43308,10 @@ var render = function() {
             { key: spell.id },
             [
               _c("table-element", { attrs: { "element-type": "td" } }, [
-                _vm._v(_vm._s(spell.name))
+                _c("a", {
+                  attrs: { href: "/spell/" + spell.slug, name: spell.name },
+                  domProps: { textContent: _vm._s(spell.name) }
+                })
               ]),
               _vm._v(" "),
               _c("table-element", { attrs: { "element-type": "td" } }, [

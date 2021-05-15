@@ -15,7 +15,10 @@
 
             <tbody>
             <tr v-for="spell in spells" :key="spell.id">
-                <table-element element-type="td">{{ spell.name }}</table-element>
+                <table-element element-type="td">
+                    <a :href="'/spell/' + spell.slug"
+                       :name="spell.name" v-text="spell.name"/>
+                </table-element>
                 <table-element element-type="td">{{spell.quote}}</table-element>
                 <table-element element-type="td" v-if="showKind">{{ spell.kind.name }}</table-element>
                 <table-element element-type="td">{{ spell.created_at | formatDate}}</table-element>
