@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="card spell-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="edit ? form.title : 'New spell'"/>
+                    <h1 class="card-header-title is-centered" v-text="edit ? form.name : 'New spell'"/>
                 </header>
                 <div class="card-content">
                     <div class="content">
@@ -11,41 +11,52 @@
                                        :message="form.failMessage || form.successMessage"></query-message>
                         <form @submit.prevent="submit">
                             <div class="field" v-if="!edit">
-                                <label class="label" for="title">Title</label>
+                                <label class="label" for="name">Name</label>
                                 <div class="control">
-                                    <input id="title"
-                                           v-model="form.title"
+                                    <input id="name"
+                                           v-model="form.name"
                                            class="input"
-                                           v-bind:class="{ 'is-danger': form.errors.has('title')}"
+                                           v-bind:class="{ 'is-danger': form.errors.has('name')}"
                                            type="text" autofocus>
                                 </div>
-                                <p class="help is-danger" v-if="form.errors.has('title')"
-                                   v-text="form.errors.get('title')"/>
+                                <p class="help is-danger" v-if="form.errors.has('name')"
+                                   v-text="form.errors.get('name')"/>
                             </div>
-
+                            <div class="field" v-if="!edit">
+                                <label class="label" for="quote">Quote</label>
+                                <div class="control">
+                                    <input id="quote"
+                                           v-model="form.quote"
+                                           class="input"
+                                           v-bind:class="{ 'is-danger': form.errors.has('quote')}"
+                                           type="text" autofocus>
+                                </div>
+                                <p class="help is-danger" v-if="form.errors.has('quote')"
+                                   v-text="form.errors.get('quote')"/>
+                            </div>
                             <div class="field">
                                 <label class="label" for="kind">Kind</label>
                                 <div class="control">
                                     <div class="select is-fullwidth" :class="loading ? 'is-loading' : ''">
                                         <select id="kind" :disabled="loading" v-model="form.kind_id">
                                             <option v-if="loading" :value="this.form.kind_id"> Loading...</option>
-                                            <option v-for="cat in categories" v-if="!loading" v-text="cat.name"
-                                                    :value="cat.id"/>
+                                            <option v-for="ki in kinds" v-if="!loading" v-text="ki.name"
+                                                    :value="ki.id"/>
                                         </select>
                                     </div>
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('kind_id')"
                                    v-text="form.errors.get('kind_id')"/>
-                                <p v-if="noCategories" class="help is-warning">Add some categories to create spells!</p>
+                                <p v-if="noKinds" class="help is-warning">Select a kind to create spells!</p>
                             </div>
 
                             <div class="field">
-                                <label class="label" for="body">Body</label>
+                                <label class="label" for="description">Description</label>
                                 <div class="control">
-                                    <textarea id="body" v-model="form.body" class="textarea"></textarea>
+                                    <textarea id="description" v-model="form.description" class="textarea"></textarea>
                                 </div>
-                                <p class="help is-danger" v-if="form.errors.has('body')"
-                                   v-text="form.errors.get('body')"/>
+                                <p class="help is-danger" v-if="form.errors.has('description')"
+                                   v-text="form.errors.get('description')"/>
                                 <p class="help">
                                     You can use <a target="_blank"
                                                    href="https://daringfireball.net/projects/markdown/syntax">
@@ -66,8 +77,9 @@
 <script>
     let form = new Form({
         'spell_id': '',
-        'title': '',
-        'body': '',
+        'name': '',
+        'quote': '',
+        'description': '',
         'kind_id': '',
         'noReset': ['kind_id']
     });
@@ -93,8 +105,8 @@
                 edit: undefined,
                 form: form,
                 url: '',
-                categories: [],
-                noCategories: false
+                kinds: [],
+                noKinds: false
             }
         },
         methods: {
@@ -109,11 +121,12 @@
                             this.url = '/spell/' + response.slug;
 
                             this.form.spell_id = response.spell_id;
-                            this.form.title = response.title;
-                            this.form.body = response.body;
+                            this.form.name = response.name;
+                            this.form.quote = response.quote;
+                            this.form.description = response.description;
                             this.form.kind_id = response.kind_id;
 
-                            this.form.noReset = ['spell_id', 'title', 'body', 'kind_id'];
+                            this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];
 
                             this.edit = true;
 
@@ -122,12 +135,12 @@
             }
         },
         created() {
-            axios.get('/list/categories')
+            axios.get('/list/kind')
                 .then(response => {
-                    this.categories = response.data;
+                    this.kinds = response.data;
 
                     if (this.loading)
-                        this.noCategories = true;
+                        this.noKinds = true;
                 });
 
             this.edit = this.isEditable;
@@ -135,11 +148,12 @@
             if (this.edit) {
                 this.url = '/spell/' + this.currentSpell.slug;
                 this.form.spell_id = this.currentSpell.id;
-                this.form.title = this.currentSpell.title;
-                this.form.body = this.currentSpell.body;
+                this.form.title = this.currentSpell.name;
+                this.form.quote = this.currentSpell.quote;
+                this.form.body = this.currentSpell.description;
                 this.form.kind_id = this.currentSpell.kind_id;
 
-                this.form.noReset = ['spell_id', 'title', 'body', 'kind_id'];
+                this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];
             } else {
                 this.url = '/spell';
             }
@@ -147,14 +161,14 @@
 
         computed: {
             loading() {
-                return !this.categories.length
+                return !this.kinds.length
             }
         },
 
         watch: {
-            categories() {
+            kinds() {
                 if (!this.loading && this.form.kind_id === '') {
-                    this.form.kind_id = _.first(this.categories).id;
+                    this.form.kind_id = _.first(this.kinds).id;
                 }
             }
         }

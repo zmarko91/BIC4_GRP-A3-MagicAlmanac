@@ -3,6 +3,6 @@
 
 @section('content')
     <section class="section is-fullwidth">
-        <kinds :all-kinds="{{ $kinds->load('blogs') }}" ></kinds>
+        <kinds :all-kinds="{{ $kinds->load('spells') }}"></kinds>
     </section>
 @endsection

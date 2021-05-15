@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <hero main-title="Spells"></hero>
+        <hero main-title="Kinds"></hero>
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
                 <success-box :message="successMessage" v-if="showSuccessMessage"></success-box>
-                <div class="box custom-box" v-if="hasSpells">
-                    <kind-list :spells="kinds" v-on:open-modal="setModal"></kind-list>
+                <div class="box custom-box" v-if="hasKinds">
+                    <kind-list :kinds="kinds" v-on:open-modal="setModal"></kind-list>
                 </div>
                 <error-box message="No kinds found" v-if="!hasKinds"></error-box>
             </div>

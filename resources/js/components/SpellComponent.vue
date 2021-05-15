@@ -26,9 +26,6 @@
 </template>
 
 <script>
-    import SpellDetail from "./SpellDetailComponent";
-    import SpellMessageForm from "./SpellMessageFormComponent";
-    import SpellMessageList from "./SpellMessageListComponent";
 
     export default {
         name: "SpellComponent",
@@ -36,9 +33,6 @@
             ErrorBox,
             SuccessBox,
             DeleteModal,
-            SpellDetail,
-            SpellMessageForm,
-            SpellMessageList
         },
         props: {
             currentSpell: {

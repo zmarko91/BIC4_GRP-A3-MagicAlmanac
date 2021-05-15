@@ -6,8 +6,16 @@
 require('./bootstrap');
 
 import vue from 'vue';
+import moment from 'moment';
 
 window.Vue = vue;
+
+
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('MM/DD/YYYY HH:mm')
+    }
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -30,7 +38,7 @@ Vue.component('spell-form', require('./components/SpellFormComponent.vue').defau
 Vue.component('kinds', require('./components/KindsComponent.vue').default);
 Vue.component('kind', require('./components/KindComponent.vue').default);
 Vue.component('kind-form', require('./components/KindFormComponent.vue').default);
-Vue.component('dashboard', require('./components/DashboardComponent.vue').default);
+//Vue.component('dashboard', require('./components/DashboardComponent.vue').default);
 // Vue.component('replies', require('./components/RepliesComponent.vue').default);
 Vue.component('hero', require('./components/base/HeroComponent.vue').default);
 

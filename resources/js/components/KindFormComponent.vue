@@ -52,7 +52,7 @@ let form = new Form({
 });
 
 export default {
-    name: "BlogFormComponent",
+    name: "SpellFormComponent",
     components: {
         QueryMessage
     },
