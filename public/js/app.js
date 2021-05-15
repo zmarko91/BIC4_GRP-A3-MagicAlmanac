@@ -2128,15 +2128,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 var form = new Form({
   'kind_id': '',
   'name': '',
   'description': ''
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SpellFormComponent",
+  name: "KindFormComponent",
   components: {
     QueryMessage: QueryMessage
   },
@@ -42439,7 +42437,7 @@ var render = function() {
     [
       _c("hero", {
         attrs: {
-          "main-title": _vm.category.name,
+          "main-title": _vm.kind.name,
           "sub-title": _vm.kind.description
         }
       }),
@@ -42526,7 +42524,147 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-content" })
+          _c("div", { staticClass: "card-content" }, [
+            _c(
+              "div",
+              { staticClass: "content" },
+              [
+                _c("query-message", {
+                  attrs: {
+                    success: _vm.form.isSuccess(),
+                    fail: _vm.form.isFail(),
+                    message: _vm.form.failMessage || _vm.form.successMessage
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.submit($event)
+                      }
+                    }
+                  },
+                  [
+                    !_vm.edit
+                      ? _c("div", { staticClass: "field" }, [
+                          _c(
+                            "label",
+                            { staticClass: "label", attrs: { for: "name" } },
+                            [_vm._v("Name")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "control" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.name,
+                                  expression: "form.name"
+                                }
+                              ],
+                              staticClass: "input",
+                              class: {
+                                "is-danger": _vm.form.errors.has("name")
+                              },
+                              attrs: {
+                                id: "name",
+                                type: "text",
+                                autofocus: ""
+                              },
+                              domProps: { value: _vm.form.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.errors.has("name")
+                            ? _c("p", {
+                                staticClass: "help is-danger",
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("name")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field" }, [
+                      _c(
+                        "label",
+                        { staticClass: "label", attrs: { for: "description" } },
+                        [_vm._v("Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.description,
+                              expression: "form.description"
+                            }
+                          ],
+                          staticClass: "textarea",
+                          attrs: { id: "description" },
+                          domProps: { value: _vm.form.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.errors.has("description")
+                        ? _c("p", {
+                            staticClass: "help is-danger",
+                            domProps: {
+                              textContent: _vm._s(
+                                _vm.form.errors.get("description")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("button", {
+                      staticClass:
+                        "button is-large is-primary is-outlined is-fullwidth",
+                      attrs: { type: "submit" },
+                      domProps: {
+                        textContent: _vm._s(_vm.edit ? "Update" : "Save")
+                      }
+                    })
+                  ]
+                )
+              ],
+              1
+            )
+          ])
         ]
       )
     ])
@@ -42590,7 +42728,7 @@ var render = function() {
             [
               _c("table-element", { attrs: { "element-type": "td" } }, [
                 _c("a", {
-                  attrs: { href: "/kind/" + kind.slug, title: kind.name },
+                  attrs: { href: "/kind/" + kind.slug, name: kind.name },
                   domProps: { textContent: _vm._s(kind.name) }
                 })
               ]),

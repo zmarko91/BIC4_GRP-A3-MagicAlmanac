@@ -6,7 +6,6 @@
                     <h1 class="card-header-title is-centered" v-text="edit ? form.name : 'New kind'"/>
                 </header>
                 <div class="card-content">
-                    <!--
                     <div class="content">
                         <query-message :success="form.isSuccess()" :fail="form.isFail()"
                                        :message="form.failMessage || form.successMessage"></query-message>
@@ -37,7 +36,6 @@
                                     v-text="edit ? 'Update' : 'Save'" />
                         </form>
                     </div>
-                    -->
                 </div>
             </div>
         </div>
@@ -52,7 +50,7 @@ let form = new Form({
 });
 
 export default {
-    name: "SpellFormComponent",
+    name: "KindFormComponent",
     components: {
         QueryMessage
     },

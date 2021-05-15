@@ -3,6 +3,6 @@
 
 @section('content')
     <section class="section is-fullwidth">
-        <kind :kind="{{ $kind }}" :user="{{ Auth::user() }}" :blogs="{{ $kind->blogs->load(['user','messages']) }}"></kind>
+        <kind :kind="{{ $kind }}" :user="{{ Auth::user() }}" :spells="{{$kind->spells->load('spell')}}"></kind>
     </section>
 @endsection

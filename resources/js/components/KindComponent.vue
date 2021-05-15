@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <hero :main-title="category.name" :sub-title="kind.description" />
+        <hero :main-title="kind.name" :sub-title="kind.description" />
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
                 <div class="box custom-box" v-if="hasSpells">

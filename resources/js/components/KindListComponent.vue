@@ -13,7 +13,7 @@
             <tr v-for="kind in kinds" :key="kind.id">
                 <table-element element-type="td">
                     <a :href="'/kind/' + kind.slug"
-                       :title="kind.name" v-text="kind.name"/>
+                       :name="kind.name" v-text="kind.name"/>
                 </table-element>
                 <table-element element-type="td">{{ kind.description }}</table-element>
                 <table-element element-type="td">{{ kind.created_at |formatDate}}</table-element>
