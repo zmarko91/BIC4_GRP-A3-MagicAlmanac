@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <spell-form :spell="spell"></spell-form>
-        <!--
+<!--        <spell-form :spell="spell"></spell-form>-->
+
         <spell-message-form :spell-id="spell.id" @new-message="sendNewMessage"></spell-message-form>
-        -->
-<!--        <div v-if="showSuccessMessage" class="columns is-multiline">
+
+      <div v-if="showSuccessMessage" class="columns is-multiline">
             <div class="column is-half is-offset-one-quarter">
                 <success-box :message="successMessage" v-if="showSuccessMessage"></success-box>
             </div>
-        </div>-->
-        <!--
+        </div>
+
         <spell-message-list v-if="hasMessages" :spell-messages="messages" :spell-slug="spell.slug" :new-message="newMessage"
                            @sync-messages="syncMessages" :current-user="currentUser"
                            @open-modal="setModal"></spell-message-list>
@@ -19,7 +19,7 @@
                 <error-box message="No messages found" v-if="!hasMessages"></error-box>
             </div>
         </div>
-        -->
+
     </div>
 </template>
 

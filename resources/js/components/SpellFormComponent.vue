@@ -3,31 +3,32 @@
         <div class="columns is-multiline">
             <div class="card spell-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="edit ? form.name : 'New spell'"/>
+                    <h1 class="card-header-title is-centered" v-text="currentSpell==undefined ?'New spell': edit? form.name : 'View for: ' + form.name"/>
                 </header>
                 <div class="card-content">
                     <div class="content">
                         <query-message :success="form.isSuccess()" :fail="form.isFail()"
                                        :message="form.failMessage || form.successMessage"></query-message>
                         <form @submit.prevent="submit">
-<!--                            <div class="field" v-if="!edit">-->
                                 <label class="label" for="name">Name</label>
                                 <div class="control">
                                     <input id="name"
                                            v-model="form.name"
                                            class="input"
+                                           :readonly="!edit"
                                            v-bind:class="{ 'is-danger': form.errors.has('name')}"
                                            type="text" autofocus>
+
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('name')"
                                    v-text="form.errors.get('name')"/>
-<!--                            </div>-->
-<!--                            <div class="field" v-if="!edit">-->
+
                                 <label class="label" for="quote">Quote</label>
                                 <div class="control">
                                     <input id="quote"
                                            v-model="form.quote"
                                            class="input"
+                                           :readonly="!edit"
                                            v-bind:class="{ 'is-danger': form.errors.has('quote')}"
                                            type="text" autofocus>
 <!--                                </div>-->
@@ -38,7 +39,7 @@
                                 <label class="label" for="kind">Kind</label>
                                 <div class="control">
                                     <div class="select is-fullwidth" :class="loading ? 'is-loading' : ''">
-                                        <select id="kind" :disabled="loading" v-model="form.kind_id">
+                                        <select id="kind" :disabled="loading || !edit" v-model="form.kind_id" >
                                             <option v-if="loading" :value="this.form.kind_id"> Loading...</option>
                                             <option v-for="ki in kinds" v-if="!loading" v-text="ki.name"
                                                     :value="ki.id"/>
@@ -53,7 +54,7 @@
                             <div class="field">
                                 <label class="label" for="description">Description</label>
                                 <div class="control">
-                                    <textarea id="description" v-model="form.description" class="textarea" ></textarea>
+                                    <textarea id="description" v-model="form.description" class="textarea" :readonly="!edit"></textarea>
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
@@ -63,9 +64,8 @@
                                     Markdown</a> syntax here.
                                 </p>
                             </div>
-
                             <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
-                                    v-text="edit ? 'Save' : 'Post'" :disabled="loading"/>
+                                    v-text="'Save'" :disabled="loading" v-show="edit"/>
                         </form>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
         },
         methods: {
             submit() {
-                if (this.edit)
+                if (this.currentSpell != undefined)
                     this.form
                         .put(this.url);
                 else
@@ -145,7 +145,7 @@
 
             this.edit = this.isEditable;
 
-            if (this.edit) {
+            if (this.currentSpell != undefined) {
                 this.url = '/spell/' + this.currentSpell.slug;
                 this.form.spell_id = this.currentSpell.id;
                 this.form.name = this.currentSpell.name;
