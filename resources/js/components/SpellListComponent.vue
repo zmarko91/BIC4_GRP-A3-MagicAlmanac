@@ -8,21 +8,37 @@
                 <table-element element-type="th" v-if="showKind">Kind</table-element>
                 <table-element element-type="th">Created</table-element>
                 <table-element element-type="th">Modified</table-element>
-                <table-element element-type="th"></table-element>
+                <table-element element-type="th">Edit/Delete</table-element>
             </tr>
             </thead>
 
 
             <tbody>
             <tr v-for="spell in spells" :key="spell.id">
-                <table-element element-type="td">
-                    <a :href="'/spell/' + spell.slug"
-                       :name="spell.name" v-text="spell.name"/>
-                </table-element>
+                <table-element element-type="td">{{spell.name}}</table-element>
                 <table-element element-type="td">{{spell.quote}}</table-element>
                 <table-element element-type="td" v-if="showKind">{{ spell.kind.name }}</table-element>
                 <table-element element-type="td">{{ spell.created_at | formatDate}}</table-element>
                 <table-element element-type="td">{{ spell.updated_at | formatDate}}</table-element>
+<!--                <table-element element-type="td">
+                    <a class="button is-ling" :href="'/spell/' + spell.slug">
+                        open
+                    </a>
+                </table-element>-->
+                <table-element element-type="td">
+                    <p class="buttons">
+                        <a :href="'/spell/' + spell.slug" class="button is-info is-outlined is-small">
+                            <span class="icon">
+                              <i class="fa fa-edit"></i>
+                            </span>
+                        </a>
+                        <button v-if="!spell.length" @click="openDeleteModal(spell)" class="button is-danger is-outlined is-small">
+                            <span class="icon">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </p>
+                </table-element>
             </tr>
             </tbody>
 
@@ -55,7 +71,7 @@
             }
         },
         methods: {
-            /*openDeleteModal(spell) {
+            openDeleteModal(spell) {
                 this.$emit('open-modal',
                     {
                         id: spell.id,
@@ -63,7 +79,7 @@
                         content: 'Do you really want to delete this spell?',
                         url: '/spell/' + spell.slug
                     });
-            }*/
+            }
         },
         created() {
             this.spells = this.spellList;

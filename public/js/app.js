@@ -2127,7 +2127,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var form = new Form({
   'kind_id': '',
   'name': '',
@@ -2197,6 +2196,7 @@ var form = new Form({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2384,8 +2384,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpellComponent",
   components: {
@@ -2395,9 +2393,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     currentSpell: {
-      required: true
-    },
-    currentMessages: {
       required: true
     },
     currentUser: {
@@ -2417,34 +2412,7 @@ __webpack_require__.r(__webpack_exports__);
       successMessage: ''
     };
   },
-  methods: {
-    sendNewMessage: function sendNewMessage(message) {
-      this.newMessage = message;
-      if (!this.messages.length) this.messages.push(message);
-    },
-    syncMessages: function syncMessages(allMessages) {
-      if (this.messages !== allMessages) this.messages = allMessages.reverse();
-    },
-    toggleModal: function toggleModal(info) {
-      this.modalActive = !this.modalActive;
-
-      if (info.id !== 0) {
-        this.messages = _.remove(this.messages, function (msg) {
-          return msg.id !== info.id;
-        });
-        this.successMessage = info.message;
-      }
-    },
-    setModal: function setModal(data) {
-      this.modalTitle = data.title;
-      this.modalContent = data.content;
-      this.modalUrl = data.url;
-      this.modalId = data.id;
-      this.toggleModal({
-        id: 0
-      });
-    }
-  },
+  methods: {},
   created: function created() {
     this.spell = this.currentSpell;
     /*
@@ -2617,9 +2585,9 @@ var form = new Form({
     if (this.edit) {
       this.url = '/spell/' + this.currentSpell.slug;
       this.form.spell_id = this.currentSpell.id;
-      this.form.title = this.currentSpell.name;
+      this.form.name = this.currentSpell.name;
       this.form.quote = this.currentSpell.quote;
-      this.form.body = this.currentSpell.description;
+      this.form.description = this.currentSpell.description;
       this.form.kind_id = this.currentSpell.kind_id;
       this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];
     } else {
@@ -2684,6 +2652,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpellListComponent",
   props: {
@@ -2707,15 +2691,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    /*openDeleteModal(spell) {
-        this.$emit('open-modal',
-            {
-                id: spell.id,
-                title: spell.title,
-                content: 'Do you really want to delete this spell?',
-                url: '/spell/' + spell.slug
-            });
-    }*/
+    openDeleteModal: function openDeleteModal(spell) {
+      this.$emit('open-modal', {
+        id: spell.id,
+        title: spell.title,
+        content: 'Do you really want to delete this spell?',
+        url: '/spell/' + spell.slug
+      });
+    }
   },
   created: function created() {
     this.spells = this.spellList;
@@ -2856,7 +2839,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "DeleteModalComponent",
   props: {
     title: {
-      required: true,
+      required: false,
       type: String
     },
     content: {
@@ -2888,7 +2871,7 @@ __webpack_require__.r(__webpack_exports__);
           id: _this.entryId,
           message: response.data.message
         });
-      });
+      }); // this.$router.go(0);
     }
   }
 });
@@ -42716,6 +42699,10 @@ var render = function() {
             _vm._v(" "),
             _c("table-element", { attrs: { "element-type": "th" } }, [
               _vm._v("Modified")
+            ]),
+            _vm._v(" "),
+            _c("table-element", { attrs: { "element-type": "th" } }, [
+              _vm._v("Edit/Delete")
             ])
           ],
           1
@@ -42746,6 +42733,42 @@ var render = function() {
               _vm._v(" "),
               _c("table-element", { attrs: { "element-type": "td" } }, [
                 _vm._v(_vm._s(_vm._f("formatDate")(kind.updated_at)))
+              ]),
+              _vm._v(" "),
+              _c("table-element", { attrs: { "element-type": "td" } }, [
+                _c("p", { staticClass: "buttons" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "button is-info is-outlined is-small",
+                      attrs: { href: "/kind/" + kind.slug + "/edit" }
+                    },
+                    [
+                      _c("span", { staticClass: "icon" }, [
+                        _c("i", { staticClass: "fa fa-edit" })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  !kind.spells.length
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "button is-danger is-outlined is-small",
+                          on: {
+                            click: function($event) {
+                              return _vm.openDeleteModal(kind)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "icon" }, [
+                            _c("i", { staticClass: "fas fa-trash" })
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ])
               ])
             ],
             1
@@ -42854,37 +42877,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "container" },
-    [
-      _c("spell-detail", { attrs: { spell: _vm.spell } }),
-      _vm._v(" "),
-      _vm.showSuccessMessage
-        ? _c("div", { staticClass: "columns is-multiline" }, [
-            _c(
-              "div",
-              { staticClass: "column is-half is-offset-one-quarter" },
-              [
-                _vm.showSuccessMessage
-                  ? _c("success-box", {
-                      attrs: { message: _vm.successMessage }
-                    })
-                  : _vm._e()
-              ],
-              1
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("delete-modal", {
-        attrs: {
-          title: _vm.modalTitle,
-          "delete-url": _vm.modalUrl,
-          active: _vm.modalActive,
-          content: _vm.modalContent,
-          "entry-id": _vm.modalId
-        },
-        on: { "close-modal": _vm.toggleModal }
-      })
-    ],
+    [_c("spell-form", { attrs: { spell: _vm.spell } })],
     1
   )
 }
@@ -42949,117 +42942,85 @@ var render = function() {
                     }
                   },
                   [
-                    !_vm.edit
-                      ? _c("div", { staticClass: "field" }, [
-                          _c(
-                            "label",
-                            { staticClass: "label", attrs: { for: "name" } },
-                            [_vm._v("Name")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "control" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.name,
-                                  expression: "form.name"
-                                }
-                              ],
-                              staticClass: "input",
-                              class: {
-                                "is-danger": _vm.form.errors.has("name")
-                              },
-                              attrs: {
-                                id: "name",
-                                type: "text",
-                                autofocus: ""
-                              },
-                              domProps: { value: _vm.form.name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "name",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _vm.form.errors.has("name")
-                            ? _c("p", {
-                                staticClass: "help is-danger",
-                                domProps: {
-                                  textContent: _vm._s(
-                                    _vm.form.errors.get("name")
-                                  )
-                                }
-                              })
-                            : _vm._e()
-                        ])
+                    _c(
+                      "label",
+                      { staticClass: "label", attrs: { for: "name" } },
+                      [_vm._v("Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.name,
+                            expression: "form.name"
+                          }
+                        ],
+                        staticClass: "input",
+                        class: { "is-danger": _vm.form.errors.has("name") },
+                        attrs: { id: "name", type: "text", autofocus: "" },
+                        domProps: { value: _vm.form.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "name", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.form.errors.has("name")
+                      ? _c("p", {
+                          staticClass: "help is-danger",
+                          domProps: {
+                            textContent: _vm._s(_vm.form.errors.get("name"))
+                          }
+                        })
                       : _vm._e(),
                     _vm._v(" "),
-                    !_vm.edit
-                      ? _c("div", { staticClass: "field" }, [
-                          _c(
-                            "label",
-                            { staticClass: "label", attrs: { for: "quote" } },
-                            [_vm._v("Quote")]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "control" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.quote,
-                                  expression: "form.quote"
-                                }
-                              ],
-                              staticClass: "input",
-                              class: {
-                                "is-danger": _vm.form.errors.has("quote")
-                              },
-                              attrs: {
-                                id: "quote",
-                                type: "text",
-                                autofocus: ""
-                              },
-                              domProps: { value: _vm.form.quote },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "quote",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _vm.form.errors.has("quote")
-                            ? _c("p", {
-                                staticClass: "help is-danger",
-                                domProps: {
-                                  textContent: _vm._s(
-                                    _vm.form.errors.get("quote")
-                                  )
-                                }
-                              })
-                            : _vm._e()
-                        ])
-                      : _vm._e(),
+                    _c(
+                      "label",
+                      { staticClass: "label", attrs: { for: "quote" } },
+                      [_vm._v("Quote")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.quote,
+                            expression: "form.quote"
+                          }
+                        ],
+                        staticClass: "input",
+                        class: { "is-danger": _vm.form.errors.has("quote") },
+                        attrs: { id: "quote", type: "text", autofocus: "" },
+                        domProps: { value: _vm.form.quote },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "quote", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.form.errors.has("quote")
+                        ? _c("p", {
+                            staticClass: "help is-danger",
+                            domProps: {
+                              textContent: _vm._s(_vm.form.errors.get("quote"))
+                            }
+                          })
+                        : _vm._e()
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "field" }, [
                       _c(
@@ -43229,7 +43190,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "help" }, [
-      _vm._v("\n                                You can use "),
+      _vm._v("\n                                    You can use "),
       _c(
         "a",
         {
@@ -43238,9 +43199,9 @@ var staticRenderFns = [
             href: "https://daringfireball.net/projects/markdown/syntax"
           }
         },
-        [_vm._v("\n                                Markdown")]
+        [_vm._v("\n                                    Markdown")]
       ),
-      _vm._v(" syntax here.\n                            ")
+      _vm._v(" syntax here.\n                                ")
     ])
   }
 ]
@@ -43294,7 +43255,9 @@ var render = function() {
               _vm._v("Modified")
             ]),
             _vm._v(" "),
-            _c("table-element", { attrs: { "element-type": "th" } })
+            _c("table-element", { attrs: { "element-type": "th" } }, [
+              _vm._v("Edit/Delete")
+            ])
           ],
           1
         )
@@ -43308,10 +43271,7 @@ var render = function() {
             { key: spell.id },
             [
               _c("table-element", { attrs: { "element-type": "td" } }, [
-                _c("a", {
-                  attrs: { href: "/spell/" + spell.slug, name: spell.name },
-                  domProps: { textContent: _vm._s(spell.name) }
-                })
+                _vm._v(_vm._s(spell.name))
               ]),
               _vm._v(" "),
               _c("table-element", { attrs: { "element-type": "td" } }, [
@@ -43330,6 +43290,42 @@ var render = function() {
               _vm._v(" "),
               _c("table-element", { attrs: { "element-type": "td" } }, [
                 _vm._v(_vm._s(_vm._f("formatDate")(spell.updated_at)))
+              ]),
+              _vm._v(" "),
+              _c("table-element", { attrs: { "element-type": "td" } }, [
+                _c("p", { staticClass: "buttons" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "button is-info is-outlined is-small",
+                      attrs: { href: "/spell/" + spell.slug }
+                    },
+                    [
+                      _c("span", { staticClass: "icon" }, [
+                        _c("i", { staticClass: "fa fa-edit" })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  !spell.length
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "button is-danger is-outlined is-small",
+                          on: {
+                            click: function($event) {
+                              return _vm.openDeleteModal(spell)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "icon" }, [
+                            _c("i", { staticClass: "fas fa-trash" })
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ])
               ])
             ],
             1

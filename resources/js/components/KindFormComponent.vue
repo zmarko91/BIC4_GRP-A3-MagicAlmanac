@@ -22,7 +22,6 @@
                                 <p class="help is-danger" v-if="form.errors.has('name')"
                                    v-text="form.errors.get('name')"/>
                             </div>
-
                             <div class="field">
                                 <label class="label" for="description">Description</label>
                                 <div class="control">

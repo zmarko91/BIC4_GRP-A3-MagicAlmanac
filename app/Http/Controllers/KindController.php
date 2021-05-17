@@ -47,10 +47,21 @@ class KindController extends Controller
      */
     public function store(Request $request)
     {
-        return Kind::create($request->validate([
+
+        $kind = Kind::create($request->validate([
             'name' => 'required',
             'description' => 'required'
         ]));
+
+        $kind->{"message"} = "Kind successfully added!";
+
+        return response($kind, 200)
+            ->header('Content-Type', 'application/json');
+
+//        return Kind::create($request->validate([
+//            'name' => 'required',
+//            'description' => 'required'
+//        ]));
     }
 
     /**
@@ -84,10 +95,19 @@ class KindController extends Controller
      */
     public function update(Request $request, Kind $kind)
     {
-        return $kind->update($request->validate([
+
+        if($kind->update($request->validate([
+            'description' => 'required'
+        ])))
+            return response(['message' => "Kind successfully updated!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort(500);
+
+        /*return $kind->update($request->validate([
             'name' => 'required',
             'description' => 'required'
-        ]));
+        ]));*/
     }
 
     /**
@@ -98,7 +118,17 @@ class KindController extends Controller
      */
     public function destroy(Kind $kind)
     {
-        $kind->delete();
+
+        if($kind->spells->count())
+            abort(403);
+
+        if($kind->delete())
+            return response(['message' => "Kind deleted!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort(500);
+
+//        $kind->delete();
     }
 
     /**

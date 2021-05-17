@@ -10,7 +10,7 @@
                         <query-message :success="form.isSuccess()" :fail="form.isFail()"
                                        :message="form.failMessage || form.successMessage"></query-message>
                         <form @submit.prevent="submit">
-                            <div class="field" v-if="!edit">
+<!--                            <div class="field" v-if="!edit">-->
                                 <label class="label" for="name">Name</label>
                                 <div class="control">
                                     <input id="name"
@@ -21,8 +21,8 @@
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('name')"
                                    v-text="form.errors.get('name')"/>
-                            </div>
-                            <div class="field" v-if="!edit">
+<!--                            </div>-->
+<!--                            <div class="field" v-if="!edit">-->
                                 <label class="label" for="quote">Quote</label>
                                 <div class="control">
                                     <input id="quote"
@@ -30,7 +30,7 @@
                                            class="input"
                                            v-bind:class="{ 'is-danger': form.errors.has('quote')}"
                                            type="text" autofocus>
-                                </div>
+<!--                                </div>-->
                                 <p class="help is-danger" v-if="form.errors.has('quote')"
                                    v-text="form.errors.get('quote')"/>
                             </div>
@@ -53,7 +53,7 @@
                             <div class="field">
                                 <label class="label" for="description">Description</label>
                                 <div class="control">
-                                    <textarea id="description" v-model="form.description" class="textarea"></textarea>
+                                    <textarea id="description" v-model="form.description" class="textarea" ></textarea>
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
@@ -148,9 +148,9 @@
             if (this.edit) {
                 this.url = '/spell/' + this.currentSpell.slug;
                 this.form.spell_id = this.currentSpell.id;
-                this.form.title = this.currentSpell.name;
+                this.form.name = this.currentSpell.name;
                 this.form.quote = this.currentSpell.quote;
-                this.form.body = this.currentSpell.description;
+                this.form.description = this.currentSpell.description;
                 this.form.kind_id = this.currentSpell.kind_id;
 
                 this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];

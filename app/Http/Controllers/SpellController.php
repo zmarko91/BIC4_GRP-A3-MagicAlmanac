@@ -47,12 +47,26 @@ class SpellController extends Controller
      */
     public function store(Request $request)
     {
-        return Spell::create($request->validate([
+
+        $spell = Spell::create($request->validate([
             'name' => 'required',
             'quote' => 'required',
             'description' => 'required',
             'kind_id' => 'required|exists:App\Kind,id'
         ]));
+
+        $spell->{"message"} = "Spell successfully created!";
+
+        return response($spell, 200)
+            ->header('Content-Type', 'application/json');
+
+
+//        return Spell::create($request->validate([
+//            'name' => 'required',
+//            'quote' => 'required',
+//            'description' => 'required',
+//            'kind_id' => 'required|exists:App\Kind,id'
+//        ]));
     }
 
     /**
@@ -86,12 +100,25 @@ class SpellController extends Controller
      */
     public function update(Request $request, Spell $spell)
     {
-        return $spell->update($request->validate([
+
+
+        if($spell->update($request->validate([
             'name' => 'required',
             'quote' => 'required',
             'description' => 'required',
             'kind_id' => 'required|exists:App\Kind,id'
-        ]));
+        ])))
+            return response(['message' => "Spell successfully updated!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort('500');
+
+//        return $spell->update($request->validate([
+//            'name' => 'required',
+//            'quote' => 'required',
+//            'description' => 'required',
+//            'kind_id' => 'required|exists:App\Kind,id'
+//        ]));
     }
 
     /**
@@ -102,7 +129,14 @@ class SpellController extends Controller
      */
     public function destroy(Spell $spell)
     {
-        return $spell->delete();
+
+        if($spell->delete())
+            return response(['message' => "Spell deleted!"], 200)
+                ->header('Content-Type', 'application/json');
+        else
+            abort('500');
+
+//        return $spell->delete();
     }
 
 

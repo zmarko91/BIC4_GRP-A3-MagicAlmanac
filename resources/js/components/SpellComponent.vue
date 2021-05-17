@@ -1,14 +1,14 @@
 <template>
     <div class="container">
-        <spell-detail :spell="spell"></spell-detail>
+        <spell-form :spell="spell"></spell-form>
         <!--
         <spell-message-form :spell-id="spell.id" @new-message="sendNewMessage"></spell-message-form>
         -->
-        <div v-if="showSuccessMessage" class="columns is-multiline">
+<!--        <div v-if="showSuccessMessage" class="columns is-multiline">
             <div class="column is-half is-offset-one-quarter">
                 <success-box :message="successMessage" v-if="showSuccessMessage"></success-box>
             </div>
-        </div>
+        </div>-->
         <!--
         <spell-message-list v-if="hasMessages" :spell-messages="messages" :spell-slug="spell.slug" :new-message="newMessage"
                            @sync-messages="syncMessages" :current-user="currentUser"
@@ -20,8 +20,6 @@
             </div>
         </div>
         -->
-        <delete-modal :title="modalTitle" :delete-url="modalUrl" :active="modalActive" :content="modalContent"
-                      :entry-id="modalId" v-on:close-modal="toggleModal"></delete-modal>
     </div>
 </template>
 
@@ -36,9 +34,6 @@
         },
         props: {
             currentSpell: {
-                required: true
-            },
-            currentMessages: {
                 required: true
             },
             currentUser: {
@@ -59,31 +54,7 @@
             }
         },
         methods: {
-            sendNewMessage(message) {
-                this.newMessage = message;
 
-                if (!this.messages.length)
-                    this.messages.push(message);
-            },
-            syncMessages(allMessages) {
-                if (this.messages !== allMessages)
-                    this.messages = allMessages.reverse();
-            },
-            toggleModal(info) {
-                this.modalActive = !this.modalActive;
-
-                if (info.id !== 0) {
-                    this.messages = _.remove(this.messages, msg => msg.id !== info.id);
-                    this.successMessage = info.message;
-                }
-            },
-            setModal(data) {
-                this.modalTitle = data.title;
-                this.modalContent = data.content;
-                this.modalUrl = data.url;
-                this.modalId = data.id;
-                this.toggleModal({id: 0});
-            }
         },
         created() {
             this.spell = this.currentSpell;

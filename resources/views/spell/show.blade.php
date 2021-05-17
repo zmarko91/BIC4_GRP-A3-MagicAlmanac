@@ -3,7 +3,6 @@
 
 @section('content')
     <section class="section is-fullwidth">
-        <spell :current-spell="{{ $spell->load('user') }}"
-              :current-messages="{{ $spell->messages->load('user')->sortByDesc('created_at') }}" :current-user="{{ auth()->user() }}"></spell>
+        <spell-form :current-Spell="{{ $spell }}" :is-Editable="true" :current-user="{{ auth()->user() }}"></spell-form>
     </section>
 @endsection

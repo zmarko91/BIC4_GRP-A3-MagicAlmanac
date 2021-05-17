@@ -7,6 +7,7 @@
                 <table-element element-type="th">Description</table-element>
                 <table-element element-type="th">Created</table-element>
                 <table-element element-type="th">Modified</table-element>
+                <table-element element-type="th">Edit/Delete</table-element>
             </tr>
             </thead>
             <tbody>
@@ -18,7 +19,7 @@
                 <table-element element-type="td">{{ kind.description }}</table-element>
                 <table-element element-type="td">{{ kind.created_at |formatDate}}</table-element>
                 <table-element element-type="td">{{ kind.updated_at | formatDate}}</table-element>
-<!--                <table-element element-type="td">
+                <table-element element-type="td">
                     <p class="buttons">
                         <a :href="'/kind/' + kind.slug + '/edit'" class="button is-info is-outlined is-small">
                             <span class="icon">
@@ -27,11 +28,11 @@
                         </a>
                         <button v-if="!kind.spells.length" @click="openDeleteModal(kind)" class="button is-danger is-outlined is-small">
                             <span class="icon">
-                              <i class="fa fa-remove"></i>
+                              <i class="fas fa-trash"></i>
                             </span>
                         </button>
                     </p>
-                </table-element>-->
+                </table-element>
             </tr>
             </tbody>
         </table>

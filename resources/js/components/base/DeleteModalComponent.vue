@@ -22,7 +22,7 @@
         name: "DeleteModalComponent",
         props: {
             title: {
-                required: true,
+                required: false,
                 type: String
             },
             content: {
@@ -52,6 +52,7 @@
                             id: this.entryId,
                             message: response.data.message
                         }));
+                // this.$router.go(0);
             }
         }
     }
