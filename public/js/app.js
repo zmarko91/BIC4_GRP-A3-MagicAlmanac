@@ -2237,6 +2237,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "KindListComponent",
   props: {
@@ -2560,7 +2565,7 @@ var form = new Form({
     submit: function submit() {
       var _this = this;
 
-      if (this.edit) this.form.put(this.url);else this.form.post(this.url).then(function (response) {
+      if (this.currentSpell != undefined) this.form.put(this.url);else this.form.post(this.url).then(function (response) {
         _this.url = '/spell/' + response.slug;
         _this.form.spell_id = response.spell_id;
         _this.form.name = response.name;
@@ -2582,7 +2587,7 @@ var form = new Form({
     });
     this.edit = this.isEditable;
 
-    if (this.edit) {
+    if (this.currentSpell != undefined) {
       this.url = '/spell/' + this.currentSpell.slug;
       this.form.spell_id = this.currentSpell.id;
       this.form.name = this.currentSpell.name;
@@ -42499,7 +42504,7 @@ var render = function() {
     _c("div", { staticClass: "columns is-multiline" }, [
       _c(
         "div",
-        { staticClass: "card blog-card column is-half is-offset-one-quarter" },
+        { staticClass: "card spell-card column is-half is-offset-one-quarter" },
         [
           _c("header", { staticClass: "card-header" }, [
             _c("h1", {
@@ -42767,7 +42772,20 @@ var render = function() {
                           ])
                         ]
                       )
-                    : _vm._e()
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "button is-info is-outlined is-small",
+                      attrs: { href: "/kind/" + kind.slug }
+                    },
+                    [
+                      _c("span", { staticClass: "icon" }, [
+                        _c("i", { staticClass: "fas fa-eye" })
+                      ])
+                    ]
+                  )
                 ])
               ])
             ],
@@ -42877,7 +42895,59 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "container" },
-    [_c("spell-form", { attrs: { spell: _vm.spell } })],
+    [
+      _c("spell-message-form", {
+        attrs: { "spell-id": _vm.spell.id },
+        on: { "new-message": _vm.sendNewMessage }
+      }),
+      _vm._v(" "),
+      _vm.showSuccessMessage
+        ? _c("div", { staticClass: "columns is-multiline" }, [
+            _c(
+              "div",
+              { staticClass: "column is-half is-offset-one-quarter" },
+              [
+                _vm.showSuccessMessage
+                  ? _c("success-box", {
+                      attrs: { message: _vm.successMessage }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.hasMessages
+        ? _c("spell-message-list", {
+            attrs: {
+              "spell-messages": _vm.messages,
+              "spell-slug": _vm.spell.slug,
+              "new-message": _vm.newMessage,
+              "current-user": _vm.currentUser
+            },
+            on: {
+              "sync-messages": _vm.syncMessages,
+              "open-modal": _vm.setModal
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.hasMessages
+        ? _c("div", { staticClass: "columns is-multiline" }, [
+            _c(
+              "div",
+              { staticClass: "column is-half is-offset-one-quarter" },
+              [
+                !_vm.hasMessages
+                  ? _c("error-box", { attrs: { message: "No messages found" } })
+                  : _vm._e()
+              ],
+              1
+            )
+          ])
+        : _vm._e()
+    ],
     1
   )
 }
@@ -42913,7 +42983,13 @@ var render = function() {
             _c("h1", {
               staticClass: "card-header-title is-centered",
               domProps: {
-                textContent: _vm._s(_vm.edit ? _vm.form.name : "New spell")
+                textContent: _vm._s(
+                  _vm.currentSpell == undefined
+                    ? "New spell"
+                    : _vm.edit
+                    ? _vm.form.name
+                    : "View for: " + _vm.form.name
+                )
               }
             })
           ]),
@@ -42960,7 +43036,12 @@ var render = function() {
                         ],
                         staticClass: "input",
                         class: { "is-danger": _vm.form.errors.has("name") },
-                        attrs: { id: "name", type: "text", autofocus: "" },
+                        attrs: {
+                          id: "name",
+                          readonly: !_vm.edit,
+                          type: "text",
+                          autofocus: ""
+                        },
                         domProps: { value: _vm.form.name },
                         on: {
                           input: function($event) {
@@ -43000,7 +43081,12 @@ var render = function() {
                         ],
                         staticClass: "input",
                         class: { "is-danger": _vm.form.errors.has("quote") },
-                        attrs: { id: "quote", type: "text", autofocus: "" },
+                        attrs: {
+                          id: "quote",
+                          readonly: !_vm.edit,
+                          type: "text",
+                          autofocus: ""
+                        },
                         domProps: { value: _vm.form.quote },
                         on: {
                           input: function($event) {
@@ -43048,7 +43134,10 @@ var render = function() {
                                     expression: "form.kind_id"
                                   }
                                 ],
-                                attrs: { id: "kind", disabled: _vm.loading },
+                                attrs: {
+                                  id: "kind",
+                                  disabled: _vm.loading || !_vm.edit
+                                },
                                 on: {
                                   change: function($event) {
                                     var $$selectedVal = Array.prototype.filter
@@ -43134,7 +43223,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "textarea",
-                          attrs: { id: "description" },
+                          attrs: { id: "description", readonly: !_vm.edit },
                           domProps: { value: _vm.form.description },
                           on: {
                             input: function($event) {
@@ -43166,12 +43255,18 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("button", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.edit,
+                          expression: "edit"
+                        }
+                      ],
                       staticClass:
                         "button is-large is-primary is-outlined is-fullwidth",
                       attrs: { type: "submit", disabled: _vm.loading },
-                      domProps: {
-                        textContent: _vm._s(_vm.edit ? "Save" : "Post")
-                      }
+                      domProps: { textContent: _vm._s("Save") }
                     })
                   ]
                 )
@@ -43298,7 +43393,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "button is-info is-outlined is-small",
-                      attrs: { href: "/spell/" + spell.slug }
+                      attrs: { href: "/spell/" + spell.slug + "/edit" }
                     },
                     [
                       _c("span", { staticClass: "icon" }, [
@@ -43324,7 +43419,20 @@ var render = function() {
                           ])
                         ]
                       )
-                    : _vm._e()
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "button is-info is-outlined is-small",
+                      attrs: { href: "/spell/" + spell.slug }
+                    },
+                    [
+                      _c("span", { staticClass: "icon" }, [
+                        _c("i", { staticClass: "fas fa-eye" })
+                      ])
+                    ]
+                  )
                 ])
               ])
             ],

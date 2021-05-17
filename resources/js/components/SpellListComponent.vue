@@ -20,14 +20,9 @@
                 <table-element element-type="td" v-if="showKind">{{ spell.kind.name }}</table-element>
                 <table-element element-type="td">{{ spell.created_at | formatDate}}</table-element>
                 <table-element element-type="td">{{ spell.updated_at | formatDate}}</table-element>
-<!--                <table-element element-type="td">
-                    <a class="button is-ling" :href="'/spell/' + spell.slug">
-                        open
-                    </a>
-                </table-element>-->
                 <table-element element-type="td">
                     <p class="buttons">
-                        <a :href="'/spell/' + spell.slug" class="button is-info is-outlined is-small">
+                        <a :href="'/spell/' + spell.slug + '/edit'" class="button is-info is-outlined is-small">
                             <span class="icon">
                               <i class="fa fa-edit"></i>
                             </span>
@@ -37,6 +32,11 @@
                                 <i class="fas fa-trash"></i>
                             </span>
                         </button>
+                        <a :href="'/spell/' + spell.slug" class="button is-info is-outlined is-small">
+                            <span class="icon">
+                              <i class="fas fa-eye"></i>
+                            </span>
+                        </a>
                     </p>
                 </table-element>
             </tr>

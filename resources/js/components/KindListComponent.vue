@@ -31,6 +31,11 @@
                               <i class="fas fa-trash"></i>
                             </span>
                         </button>
+                        <a :href="'/kind/' + kind.slug" class="button is-info is-outlined is-small">
+                            <span class="icon">
+                              <i class="fas fa-eye"></i>
+                            </span>
+                        </a>
                     </p>
                 </table-element>
             </tr>

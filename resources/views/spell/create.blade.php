@@ -3,6 +3,6 @@
 
 @section('content')
     <section class="section is-fullheight">
-        <spell-form></spell-form>
+        <spell-form :is-editable="true"></spell-form>
     </section>
 @endsection
