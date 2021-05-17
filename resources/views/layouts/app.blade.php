@@ -143,7 +143,7 @@
 
     <footer class="footer">
         <div class="content has-text-centered">
-            <small>Here comes some footer</small>
+            <small>BIC4 Gruppe 4</small>
         </div>
     </footer>
 </div>
