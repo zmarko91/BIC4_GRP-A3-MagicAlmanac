@@ -4,7 +4,6 @@
             <thead>
             <tr class="title is-6">
                 <table-element element-type="th">Name</table-element>
-                <table-element element-type="th">Description</table-element>
                 <table-element element-type="th">Created</table-element>
                 <table-element element-type="th">Modified</table-element>
                 <table-element element-type="th">Edit/Delete</table-element>
@@ -16,7 +15,6 @@
                     <a :href="'/kind/' + kind.slug"
                        :name="kind.name" v-text="kind.name"/>
                 </table-element>
-                <table-element element-type="td">{{ kind.description }}</table-element>
                 <table-element element-type="td">{{ kind.created_at |formatDate}}</table-element>
                 <table-element element-type="td">{{ kind.updated_at | formatDate}}</table-element>
                 <table-element element-type="td">
@@ -31,11 +29,6 @@
                               <i class="fas fa-trash"></i>
                             </span>
                         </button>
-                        <a :href="'/kind/' + kind.slug" class="button is-info is-outlined is-small">
-                            <span class="icon">
-                              <i class="fas fa-eye"></i>
-                            </span>
-                        </a>
                     </p>
                 </table-element>
             </tr>
