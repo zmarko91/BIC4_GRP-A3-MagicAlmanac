@@ -2,9 +2,7 @@
 
 
 @section('content')
-    <section class="section">
-        <div class="container">
-            <h1>Search spell</h1>
-        </div>
+    <section class="section is-fullwidth">
+        <spell-search :current-user="{{ Auth::user() }}"></spell-search>
     </section>
 @endsection

@@ -35,6 +35,7 @@ Vue.component('query-message', require('./components/base/QueryMessage.vue').def
 Vue.component('spells', require('./components/SpellsComponent.vue').default);
 Vue.component('spell', require('./components/SpellComponent.vue').default);
 Vue.component('spell-form', require('./components/SpellFormComponent.vue').default);
+Vue.component('spell-search', require('./components/SpellSearchComponent.vue').default);
 Vue.component('kinds', require('./components/KindsComponent.vue').default);
 Vue.component('kind', require('./components/KindComponent.vue').default);
 Vue.component('kind-form', require('./components/KindFormComponent.vue').default);
