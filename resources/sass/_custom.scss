@@ -1,5 +1,6 @@
 .main {
-    background: #F7F7F7;
+    background: #ffffff;
+
 }
 
 .is-fullheight.columns {
@@ -25,6 +26,8 @@
     padding: 0;
     border-radius: 5px;
 
+
+
     header {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -34,14 +37,54 @@
         .card-header-title {
             font-size: 1.2rem;
             font-weight: lighter;
+
         }
     }
 }
 
 .footer{
     height: 5vh;
+    background-color: lightpink;
+    background-image: linear-gradient(to right, pink, lightpink);
 }
 
 .hero.is-fullheight-with-navbar{
     min-height: calc(100vh - 6.75rem);
+}
+
+
+.button.is-primary {
+    background-color: indianred;
+}
+
+.button.is-primary:hover,
+.button.is-primary.is-hovered {
+    background-color: darkred;
+}
+
+.button.is-primary.is-outlined {
+    border-color: indianred;
+    color: indianred;
+
+}
+
+.button.is-primary.is-outlined:hover,
+.button.is-primary.is-outlined.is-hovered,
+.button.is-primary.is-outlined:focus,
+.button.is-primary.is-outlined.is-focused {
+    background-color: indianred;
+    border-color: indianred;
+    color: #fff;
+}
+
+.card-header {
+    background-color: indianred;
+}
+
+.navbar {
+    background-color: lightpink;
+}
+
+.hero.is-info.is-bold {
+    background-image: linear-gradient(pink, indianred);
 }

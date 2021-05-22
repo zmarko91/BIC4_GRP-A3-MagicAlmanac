@@ -2235,13 +2235,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "KindListComponent",
   props: {
@@ -2711,6 +2704,92 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     spellList: function spellList(newVal) {
       this.spells = newVal;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SpellListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SpellListComponent */ "./resources/js/components/SpellListComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var form = new Form({
+  'q': ''
+});
+var currentSpells = new Object();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    SpellList: _SpellListComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    currentUser: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      currentSpells: [],
+      form: form,
+      user: {},
+      modalActive: false,
+      modalTitle: '',
+      modalContent: '',
+      modalUrl: '',
+      modalId: 0,
+      successMessage: ''
+    };
+  },
+  methods: {
+    search: function search() {
+      var _this = this;
+
+      this.form.post('/search/spell').then(function (response) {
+        _this.currentSpells = response;
+      });
+    },
+    created: function created() {
+      this.user = this.currentUser;
+    }
+  },
+  computed: {
+    hasSpells: function hasSpells() {
+      return !!this.currentSpells.length;
     }
   }
 });
@@ -42695,10 +42774,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("table-element", { attrs: { "element-type": "th" } }, [
-              _vm._v("Description")
-            ]),
-            _vm._v(" "),
-            _c("table-element", { attrs: { "element-type": "th" } }, [
               _vm._v("Created")
             ]),
             _vm._v(" "),
@@ -42726,10 +42801,6 @@ var render = function() {
                   attrs: { href: "/kind/" + kind.slug, name: kind.name },
                   domProps: { textContent: _vm._s(kind.name) }
                 })
-              ]),
-              _vm._v(" "),
-              _c("table-element", { attrs: { "element-type": "td" } }, [
-                _vm._v(_vm._s(kind.description))
               ]),
               _vm._v(" "),
               _c("table-element", { attrs: { "element-type": "td" } }, [
@@ -42772,20 +42843,7 @@ var render = function() {
                           ])
                         ]
                       )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "button is-info is-outlined is-small",
-                      attrs: { href: "/kind/" + kind.slug }
-                    },
-                    [
-                      _c("span", { staticClass: "icon" }, [
-                        _c("i", { staticClass: "fas fa-eye" })
-                      ])
-                    ]
-                  )
+                    : _vm._e()
                 ])
               ])
             ],
@@ -43351,7 +43409,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("table-element", { attrs: { "element-type": "th" } }, [
-              _vm._v("Edit/Delete")
+              _vm._v("Edit/Delete/View")
             ])
           ],
           1
@@ -43440,6 +43498,113 @@ var render = function() {
           )
         }),
         0
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "columns is-multiline" }, [
+      _c(
+        "div",
+        { staticClass: "card spell-card column is-half is-offset-one-quarter" },
+        [
+          _c("header", { staticClass: "card-header" }, [
+            _c("h1", {
+              staticClass: "card-header-title is-centered",
+              domProps: { textContent: _vm._s("Search for spell") }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.search($event)
+                }
+              }
+            },
+            [
+              _c(
+                "label",
+                { staticClass: "label", attrs: { for: "searchField" } },
+                [_vm._v("Contains")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.q,
+                      expression: "form.q"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: { id: "searchField", type: "text", autofocus: "" },
+                  domProps: { value: _vm.form.q },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "q", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("button", {
+                staticClass:
+                  "button is-large is-primary is-outlined is-fullwidth",
+                attrs: { type: "submit" },
+                domProps: { textContent: _vm._s("Scroll in scrolls") }
+              }),
+              _vm._v(" "),
+              _vm.hasSpells
+                ? _c(
+                    "div",
+                    { staticClass: "box custom-box" },
+                    [
+                      _c("spell-list", {
+                        attrs: {
+                          "spell-list": _vm.currentSpells,
+                          user: _vm.user
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ]
+          )
+        ]
       )
     ])
   ])
@@ -56022,6 +56187,7 @@ Vue.component('query-message', __webpack_require__(/*! ./components/base/QueryMe
 Vue.component('spells', __webpack_require__(/*! ./components/SpellsComponent.vue */ "./resources/js/components/SpellsComponent.vue")["default"]);
 Vue.component('spell', __webpack_require__(/*! ./components/SpellComponent.vue */ "./resources/js/components/SpellComponent.vue")["default"]);
 Vue.component('spell-form', __webpack_require__(/*! ./components/SpellFormComponent.vue */ "./resources/js/components/SpellFormComponent.vue")["default"]);
+Vue.component('spell-search', __webpack_require__(/*! ./components/SpellSearchComponent.vue */ "./resources/js/components/SpellSearchComponent.vue")["default"]);
 Vue.component('kinds', __webpack_require__(/*! ./components/KindsComponent.vue */ "./resources/js/components/KindsComponent.vue")["default"]);
 Vue.component('kind', __webpack_require__(/*! ./components/KindComponent.vue */ "./resources/js/components/KindComponent.vue")["default"]);
 Vue.component('kind-form', __webpack_require__(/*! ./components/KindFormComponent.vue */ "./resources/js/components/KindFormComponent.vue")["default"]); //Vue.component('dashboard', require('./components/DashboardComponent.vue').default);
@@ -56658,6 +56824,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellListComponent_vue_vue_type_template_id_5707e3e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellListComponent_vue_vue_type_template_id_5707e3e2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SpellSearchComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/SpellSearchComponent.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true& */ "./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true&");
+/* harmony import */ var _SpellSearchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpellSearchComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SpellSearchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "d5eeaf50",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SpellSearchComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellSearchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SpellSearchComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SpellSearchComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellSearchComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SpellSearchComponent.vue?vue&type=template&id=d5eeaf50&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpellSearchComponent_vue_vue_type_template_id_d5eeaf50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -57445,8 +57680,8 @@ var Form = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\BIC4_GRP-A3-MagicAlmanac\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\BIC4_GRP-A3-MagicAlmanac\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
