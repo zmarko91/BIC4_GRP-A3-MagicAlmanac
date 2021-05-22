@@ -61,9 +61,6 @@
                 this.form
                     .post('/search/spell')
                     .then((response) => {
-                        console.log("Du vuitrottl!!!!!");
-                        console.log(response);
-
                         this.currentSpells = response;
                     });
             },
