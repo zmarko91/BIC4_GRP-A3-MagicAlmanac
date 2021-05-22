@@ -17,11 +17,13 @@
                     <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
                             v-text="'Scroll in scrolls'"/>
                     <div class="box custom-box" v-if="hasSpells">
-                        <spell-list :spell-list="currentSpells" :user="user"></spell-list>
+                        <spell-list :spell-list="currentSpells" :user="user" v-on:open-modal="setModal"></spell-list>
                     </div>
                 </form>
             </div>
         </div>
+    <delete-modal :title="modalTitle" :delete-url="modalUrl" :active="modalActive" :content="modalContent"
+                  :entry-id="modalId" v-on:close-modal="toggleModal"></delete-modal>
     </div>
 </template>
 
@@ -35,12 +37,20 @@
 
     export default {
         components: {
-            SpellList
+            SpellList,
+            ErrorBox,
+            SuccessBox,
+            DeleteModal
         },
+        name: "SpellSearchComponent",
         props : {
             currentUser: {
                 type: Object,
                 required: true
+            },
+            spellProp: {
+                type: Array,
+                required: false
             }
         },
         data() {
@@ -66,11 +76,29 @@
             },
             created() {
                 this.user = this.currentUser;
+            },
+            toggleModal(info) {
+                this.modalActive = !this.modalActive;
+
+                if(info.id !== 0) {
+                    this.currentSpells = _.remove(this.currentSpells, blg => blg.id !== info.id);
+                    this.successMessage = info.message;
+                }
+            },
+            setModal(data) {
+                this.modalId = data.id;
+                this.modalTitle = data.title;
+                this.modalContent = data.content;
+                this.modalUrl = data.url;
+                this.toggleModal({id: 0});
             }
         },
         computed: {
             hasSpells() {
                 return !!this.currentSpells.length;
+            },
+            showSuccessMessage() {
+                return this.successMessage !== '';
             }
         }
     }
