@@ -8,7 +8,7 @@
                 <table-element element-type="th" v-if="showKind">Kind</table-element>
                 <table-element element-type="th">Created</table-element>
                 <table-element element-type="th">Modified</table-element>
-                <table-element element-type="th">Edit/Delete</table-element>
+                <table-element element-type="th">Edit/Delete/View</table-element>
             </tr>
             </thead>
 
