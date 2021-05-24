@@ -88,3 +88,10 @@
 .hero.is-info.is-bold {
     background-image: linear-gradient(pink, indianred);
 }
+
+
+.navbar-link:not(.is-arrowless)::after {
+    border-color: indianred;
+    margin-top: -0.375em;
+    right: 1.125em;
+}

@@ -22,8 +22,8 @@
                 </form>
             </div>
         </div>
-    <delete-modal :title="modalTitle" :delete-url="modalUrl" :active="modalActive" :content="modalContent"
-                  :entry-id="modalId" v-on:close-modal="toggleModal"></delete-modal>
+        <delete-modal :title="modalTitle" :delete-url="modalUrl" :active="modalActive" :content="modalContent"
+                      :entry-id="modalId" v-on:close-modal="toggleModal"></delete-modal>
     </div>
 </template>
 
@@ -68,11 +68,13 @@
         },
         methods: {
             search() {
-                this.form
-                    .post('/search/spell')
-                    .then((response) => {
-                        this.currentSpells = response;
-                    });
+                if (this.form.q != '') {
+                    this.form
+                        .post('/search/spell')
+                        .then((response) => {
+                            this.currentSpells = response;
+                        });
+                }
             },
             created() {
                 this.user = this.currentUser;

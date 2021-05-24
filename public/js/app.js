@@ -2747,6 +2747,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 var form = new Form({
   'q': ''
@@ -2754,12 +2756,20 @@ var form = new Form({
 var currentSpells = new Object();
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    SpellList: _SpellListComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    SpellList: _SpellListComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ErrorBox: ErrorBox,
+    SuccessBox: SuccessBox,
+    DeleteModal: DeleteModal
   },
+  name: "SpellSearchComponent",
   props: {
     currentUser: {
       type: Object,
       required: true
+    },
+    spellProp: {
+      type: Array,
+      required: false
     }
   },
   data: function data() {
@@ -2779,17 +2789,42 @@ var currentSpells = new Object();
     search: function search() {
       var _this = this;
 
-      this.form.post('/search/spell').then(function (response) {
-        _this.currentSpells = response;
-      });
+      if (this.form.q != '') {
+        this.form.post('/search/spell').then(function (response) {
+          _this.currentSpells = response;
+        });
+      }
     },
     created: function created() {
       this.user = this.currentUser;
+      this.currentSpells = this.spellProp;
+    },
+    toggleModal: function toggleModal(info) {
+      this.modalActive = !this.modalActive;
+
+      if (info.id !== 0) {
+        this.currentSpells = _.remove(this.currentSpells, function (blg) {
+          return blg.id !== info.id;
+        });
+        this.successMessage = info.message;
+      }
+    },
+    setModal: function setModal(data) {
+      this.modalId = data.id;
+      this.modalTitle = data.title;
+      this.modalContent = data.content;
+      this.modalUrl = data.url;
+      this.toggleModal({
+        id: 0
+      });
     }
   },
   computed: {
     hasSpells: function hasSpells() {
       return !!this.currentSpells.length;
+    },
+    showSuccessMessage: function showSuccessMessage() {
+      return this.successMessage !== '';
     }
   }
 });
@@ -43524,90 +43559,109 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "columns is-multiline" }, [
-      _c(
-        "div",
-        { staticClass: "card spell-card column is-half is-offset-one-quarter" },
-        [
-          _c("header", { staticClass: "card-header" }, [
-            _c("h1", {
-              staticClass: "card-header-title is-centered",
-              domProps: { textContent: _vm._s("Search for spell") }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.search($event)
-                }
-              }
-            },
-            [
-              _c(
-                "label",
-                { staticClass: "label", attrs: { for: "searchField" } },
-                [_vm._v("Contains")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.q,
-                      expression: "form.q"
-                    }
-                  ],
-                  staticClass: "input",
-                  attrs: { id: "searchField", type: "text", autofocus: "" },
-                  domProps: { value: _vm.form.q },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "q", $event.target.value)
-                    }
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "columns is-multiline" }, [
+        _c(
+          "div",
+          {
+            staticClass: "card spell-card column is-half is-offset-one-quarter"
+          },
+          [
+            _c("header", { staticClass: "card-header" }, [
+              _c("h1", {
+                staticClass: "card-header-title is-centered",
+                domProps: { textContent: _vm._s("Search for spell") }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.search($event)
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("button", {
-                staticClass:
-                  "button is-large is-primary is-outlined is-fullwidth",
-                attrs: { type: "submit" },
-                domProps: { textContent: _vm._s("Scroll in scrolls") }
-              }),
-              _vm._v(" "),
-              _vm.hasSpells
-                ? _c(
-                    "div",
-                    { staticClass: "box custom-box" },
-                    [
-                      _c("spell-list", {
-                        attrs: {
-                          "spell-list": _vm.currentSpells,
-                          user: _vm.user
-                        }
-                      })
+                }
+              },
+              [
+                _c(
+                  "label",
+                  { staticClass: "label", attrs: { for: "searchField" } },
+                  [_vm._v("Contains")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.q,
+                        expression: "form.q"
+                      }
                     ],
-                    1
-                  )
-                : _vm._e()
-            ]
-          )
-        ]
-      )
-    ])
-  ])
+                    staticClass: "input",
+                    attrs: { id: "searchField", type: "text", autofocus: "" },
+                    domProps: { value: _vm.form.q },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "q", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("button", {
+                  staticClass:
+                    "button is-large is-primary is-outlined is-fullwidth",
+                  attrs: { type: "submit" },
+                  domProps: { textContent: _vm._s("Scroll in scrolls") }
+                }),
+                _vm._v(" "),
+                _vm.hasSpells
+                  ? _c(
+                      "div",
+                      { staticClass: "box custom-box" },
+                      [
+                        _c("spell-list", {
+                          attrs: {
+                            "spell-list": _vm.currentSpells,
+                            user: _vm.user
+                          },
+                          on: { "open-modal": _vm.setModal }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("delete-modal", {
+        attrs: {
+          title: _vm.modalTitle,
+          "delete-url": _vm.modalUrl,
+          active: _vm.modalActive,
+          content: _vm.modalContent,
+          "entry-id": _vm.modalId
+        },
+        on: { "close-modal": _vm.toggleModal }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57680,8 +57734,8 @@ var Form = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\BIC4_GRP-A3-MagicAlmanac\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\BIC4_GRP-A3-MagicAlmanac\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
