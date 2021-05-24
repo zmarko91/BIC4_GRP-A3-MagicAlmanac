@@ -58,11 +58,6 @@
                                 </div>
                                 <p class="help is-danger" v-if="form.errors.has('description')"
                                    v-text="form.errors.get('description')"/>
-                                <p class="help">
-                                    You can use <a target="_blank"
-                                                   href="https://daringfireball.net/projects/markdown/syntax">
-                                    Markdown</a> syntax here.
-                                </p>
                             </div>
                             <button type="submit" class="button is-large is-primary is-outlined is-fullwidth"
                                     v-text="'Save'" :disabled="loading" v-show="edit"/>

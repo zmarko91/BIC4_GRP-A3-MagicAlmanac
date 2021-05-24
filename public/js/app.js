@@ -2516,11 +2516,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 var form = new Form({
   'spell_id': '',
   'name': '',
@@ -43342,9 +43337,7 @@ var render = function() {
                               )
                             }
                           })
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm._m(0)
+                        : _vm._e()
                     ]),
                     _vm._v(" "),
                     _c("button", {
@@ -43372,27 +43365,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "help" }, [
-      _vm._v("\n                                    You can use "),
-      _c(
-        "a",
-        {
-          attrs: {
-            target: "_blank",
-            href: "https://daringfireball.net/projects/markdown/syntax"
-          }
-        },
-        [_vm._v("\n                                    Markdown")]
-      ),
-      _vm._v(" syntax here.\n                                ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

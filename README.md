@@ -1,79 +1,43 @@
-# BIC4 Project: Magic almanac
+# The magic almanac
 
-## The magic almanac
+## Description
 
-This software lists magic spells and kinds belongs to them.
+This project shows the basic usage of [VueJS](https://vuejs.org) in combination with the [Laravel](https://www.laravel.com) framework.
+Kinds and spells can be created. Every spell belongs to a kind.
+Spells can be searched for.
+
+## Functionality
+
+### Home
+
+Displays the logged in user.
+
+### List spells
+
+Shows all spells. Viewed spells can be shown, edited or deleted. 
+Every user can edit or delete a spell.
+
+### Create spell
+
+To create a spell name, quote, kind and description need to be passed by form. 
+Name of spell is unique.
+
+### Search spell
+
+Spells can be searched.
 It is possible to search for spells by various parameters.
+In this view spells can be shown, edit or deleted.
 
-## Exercise
 
-### Already providing
+### List kinds
 
-All routes that are needed are implemented:
- * **GET** ```/spell``` &rarr; Lists all spells
- * **GET** ```/list/spell``` &rarr; Returns JSON of all spells
- * **GET** ```/list/kind``` &rarr; Returns JSON of all kinds
- * **POST** ```/spell``` &rarr; Stores new spells
- * **GET** ```/spell/{slug}``` &rarr; Show spell
- * **PUT** ```/spell/{slug}``` &rarr; Update spell
- * **DELETE** ```/spell/{slug}``` &rarr; Delete spell
- * **GET** ```/spell/{slug}/edit``` &rarr; Edit spell
- * **GET** ```/search/spell``` &rarr; Search spells
- * **POST** ```/search/spell``` &rarr; Query spells
- * **GET** ```/kind``` &rarr; Lists all kinds
- * **GET** ```/list/kind``` &rarr; Returns JSON of all kinds
- * **POST** ```/kind``` &rarr; Stores new kinds
- * **GET** ```/kind/{slug}``` &rarr; Show kind
- * **PUT** ```/kind/{slug}``` &rarr; Update kind
- * **DELETE** ```/kind/{slug}``` &rarr; Delete kind
- * **GET** ```/kind/{slug}/edit``` &rarr; Edit kind
+Shows all kinds.Viewed spells can be edited or deleted.
+Every kind links to list of spells.
+Kinds can be deleted if no spells belongs to them.
 
-All views can be found in ```/resources/views```.
+### Create kind
 
-### TODO
+To create a kind name and description need to be passed by form.
+Name of kind is unique.
 
-#### VueJS
 
-Implement your [VueJS](https://vuejs.org) components in the folder ```/resources/js/components```.
-Register your components in ```/resources/js/app.js``` and use them in the following files:
-
- * ```/resources/views/kind```
-     * ```/resources/views/kind/create.blade.php```
-     * ```/resources/views/kind/edit.blade.php```
-     * ```/resources/views/kind/index.blade.php```
-     * ```/resources/views/kind/show.blade.php```
- * ```/resources/views/spell```
-      * ```/resources/views/spell/create.blade.php```
-      * ```/resources/views/spell/edit.blade.php```
-      * ```/resources/views/spell/index.blade.php```
-      * ```/resources/views/spell/search.blade.php```
-      * ```/resources/views/spell/show.blade.php```
-      
-To query data for dropdowns in forms or to reload lists use the list routes:
- * **GET** ```/list/spell```
- * **GET** ```/list/kind```
- 
-For the search form use ```q``` as the name for the text input.
-The search will be handled by the backend.
-
-#### CSS (SCSS)
-
-The design of the software need to be adapted.
-[Bulma](https://bulma.io) is used to layout and style the website.
-If wanted default styles can be overwritten by setting variables in the ```/resources/sass/_variables.scss``` file.
-Also it is possible to write custom styles in ```/resources/sass/_custom.scss```.
-
-A new logo need to be set. If pictures will be present on the website place them in ```/public/img``` folder.
-Here you will also find the logo.
-
-### Hints
-
-#### JavaScript and CSS (SCSS)
-
-To compile scss and JavaScript ```npm run dev``` need to be executed in the project folder.
-It is also possible to run ```npm run watch``` so it is not need to execute ```npm run dev``` every time a change happend. 
-
-#### Data for Database
-
-To make starting developing fast there are some seeders implemented to fill all needed tables except the user table.
-To populate the database run the command ```php artisan db:seed``` in the terminal in project root folder.
