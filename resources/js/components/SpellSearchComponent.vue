@@ -76,6 +76,7 @@
             },
             created() {
                 this.user = this.currentUser;
+                this.currentSpells = this.spellProp;
             },
             toggleModal(info) {
                 this.modalActive = !this.modalActive;
