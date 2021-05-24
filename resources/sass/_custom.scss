@@ -1,6 +1,6 @@
 .main {
     background: #ffffff;
-
+    background-image: url('img/background.png');
 }
 
 .is-fullheight.columns {
@@ -44,8 +44,9 @@
 
 .footer{
     height: 5vh;
-    background-color: lightpink;
-    background-image: linear-gradient(to right, pink, lightpink);
+    background-color: black;
+    color: white;
+    //background-image: linear-gradient(to right, pink, lightpink);
 }
 
 .hero.is-fullheight-with-navbar{
@@ -54,17 +55,17 @@
 
 
 .button.is-primary {
-    background-color: indianred;
+    background-color: black;
 }
 
 .button.is-primary:hover,
 .button.is-primary.is-hovered {
-    background-color: darkred;
+    background-color: black;
 }
 
 .button.is-primary.is-outlined {
-    border-color: indianred;
-    color: indianred;
+    border-color: black;
+    color: black;
 
 }
 
@@ -72,26 +73,35 @@
 .button.is-primary.is-outlined.is-hovered,
 .button.is-primary.is-outlined:focus,
 .button.is-primary.is-outlined.is-focused {
-    background-color: indianred;
-    border-color: indianred;
-    color: #fff;
+        background-color: black;
+    border-color: black;
+    color: white;
 }
 
 .card-header {
-    background-color: indianred;
+    background-color: black;
+    color: white;
 }
 
 .navbar {
-    background-color: lightpink;
+    background-color: black;
+    color: white;
+}
+
+.navbar-item {
+    color: whitesmoke;
+}
+.navbar-link {
+    color: whitesmoke;
 }
 
 .hero.is-info.is-bold {
-    background-image: linear-gradient(pink, indianred);
+    background-image: linear-gradient(darkgrey, darkgrey);
 }
 
 
 .navbar-link:not(.is-arrowless)::after {
-    border-color: indianred;
+    border-color: white;
     margin-top: -0.375em;
     right: 1.125em;
 }
