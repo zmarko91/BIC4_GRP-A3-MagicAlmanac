@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="card spell-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="edit ? form.name : 'New kind'"/>
+                    <h1 class="card-header-title is-centered" v-text="edit ? 'Edit: ' + form.name : 'New kind'"/>
                 </header>
                 <div class="card-content">
                     <div class="content">
