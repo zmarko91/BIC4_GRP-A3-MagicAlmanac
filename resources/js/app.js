@@ -22,16 +22,11 @@ Vue.filter('formatDate', function(value) {
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ * Eg. ./components/DashboardComponent.vue -> <dashboard-component></dashboard-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
 Vue.component('query-message', require('./components/base/QueryMessage.vue').default);
-
-
 Vue.component('spells', require('./components/SpellsComponent.vue').default);
 Vue.component('spell', require('./components/SpellComponent.vue').default);
 Vue.component('spell-form', require('./components/SpellFormComponent.vue').default);
@@ -39,8 +34,6 @@ Vue.component('spell-search', require('./components/SpellSearchComponent.vue').d
 Vue.component('kinds', require('./components/KindsComponent.vue').default);
 Vue.component('kind', require('./components/KindComponent.vue').default);
 Vue.component('kind-form', require('./components/KindFormComponent.vue').default);
-//Vue.component('dashboard', require('./components/DashboardComponent.vue').default);
-// Vue.component('replies', require('./components/RepliesComponent.vue').default);
 Vue.component('hero', require('./components/base/HeroComponent.vue').default);
 
 /**

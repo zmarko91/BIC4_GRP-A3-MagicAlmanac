@@ -40,7 +40,7 @@ export default {
             this.modalActive = !this.modalActive;
 
             if(info.id !== 0) {
-                this.kindSpells = _.remove(this.kindSpells, blg => blg.id !== info.id);
+                this.kindSpells = _.remove(this.kindSpells, k => k.id !== info.id);
                 this.successMessage = info.message;
             }
         },

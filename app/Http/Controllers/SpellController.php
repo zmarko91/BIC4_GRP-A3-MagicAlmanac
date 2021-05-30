@@ -59,14 +59,6 @@ class SpellController extends Controller
 
         return response($spell, 200)
             ->header('Content-Type', 'application/json');
-
-
-//        return Spell::create($request->validate([
-//            'name' => 'required',
-//            'quote' => 'required',
-//            'description' => 'required',
-//            'kind_id' => 'required|exists:App\Kind,id'
-//        ]));
     }
 
     /**
@@ -112,13 +104,6 @@ class SpellController extends Controller
                 ->header('Content-Type', 'application/json');
         else
             abort('500');
-
-//        return $spell->update($request->validate([
-//            'name' => 'required',
-//            'quote' => 'required',
-//            'description' => 'required',
-//            'kind_id' => 'required|exists:App\Kind,id'
-//        ]));
     }
 
     /**
@@ -135,8 +120,6 @@ class SpellController extends Controller
                 ->header('Content-Type', 'application/json');
         else
             abort('500');
-
-//        return $spell->delete();
     }
 
 

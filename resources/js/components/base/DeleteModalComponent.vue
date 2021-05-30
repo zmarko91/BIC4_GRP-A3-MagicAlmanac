@@ -52,7 +52,6 @@
                             id: this.entryId,
                             message: response.data.message
                         }));
-                // this.$router.go(0);
             }
         }
     }

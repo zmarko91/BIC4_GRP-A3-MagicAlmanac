@@ -31,7 +31,6 @@
                                            :readonly="!edit"
                                            v-bind:class="{ 'is-danger': form.errors.has('quote')}"
                                            type="text" autofocus>
-<!--                                </div>-->
                                 <p class="help is-danger" v-if="form.errors.has('quote')"
                                    v-text="form.errors.get('quote')"/>
                             </div>

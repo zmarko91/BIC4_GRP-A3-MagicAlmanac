@@ -84,7 +84,7 @@
                 this.modalActive = !this.modalActive;
 
                 if(info.id !== 0) {
-                    this.currentSpells = _.remove(this.currentSpells, blg => blg.id !== info.id);
+                    this.currentSpells = _.remove(this.currentSpells, k => k.id !== info.id);
                     this.successMessage = info.message;
                 }
             },

@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-<!--        <spell-form :spell="spell"></spell-form>-->
-
         <spell-message-form :spell-id="spell.id" @new-message="sendNewMessage"></spell-message-form>
 
       <div v-if="showSuccessMessage" class="columns is-multiline">
@@ -58,22 +56,8 @@
         },
         created() {
             this.spell = this.currentSpell;
-/*
-            if (this.currentMessages instanceof Object)
-                Object.keys(this.currentMessages).forEach(item =>
-                    this.messages.push(this.currentMessages[item]));
-            else
-                this.messages = this.currentMessages;
-
- */
         },
         computed: {
-            /*
-            hasMessages() {
-                return !!this.messages.length;
-            },
-
-             */
             showSuccessMessage() {
                 return this.successMessage !== '';
             }

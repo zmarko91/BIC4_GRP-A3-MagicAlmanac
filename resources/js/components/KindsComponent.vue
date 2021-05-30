@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import KindList from '../../../../BIC4_GRP-A3-MagicAlmanac/resources/js/components/KindListComponent';
+    import KindList from './KindListComponent';
 
     export default {
         components:{

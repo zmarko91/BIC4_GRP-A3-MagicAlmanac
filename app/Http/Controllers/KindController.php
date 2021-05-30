@@ -57,11 +57,6 @@ class KindController extends Controller
 
         return response($kind, 200)
             ->header('Content-Type', 'application/json');
-
-//        return Kind::create($request->validate([
-//            'name' => 'required',
-//            'description' => 'required'
-//        ]));
     }
 
     /**
@@ -103,11 +98,6 @@ class KindController extends Controller
                 ->header('Content-Type', 'application/json');
         else
             abort(500);
-
-        /*return $kind->update($request->validate([
-            'name' => 'required',
-            'description' => 'required'
-        ]));*/
     }
 
     /**
@@ -127,8 +117,6 @@ class KindController extends Controller
                 ->header('Content-Type', 'application/json');
         else
             abort(500);
-
-//        $kind->delete();
     }
 
     /**
