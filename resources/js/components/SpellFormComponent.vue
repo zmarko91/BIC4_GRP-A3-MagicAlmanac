@@ -3,7 +3,7 @@
         <div class="columns is-multiline">
             <div class="card spell-card column is-half is-offset-one-quarter">
                 <header class="card-header">
-                    <h1 class="card-header-title is-centered" v-text="currentSpell==undefined ?'New spell': edit? form.name : 'View for: ' + form.name"/>
+                    <h1 class="card-header-title is-centered" v-text="currentSpell==undefined ?'New spell': edit? 'Edit: ' + form.name : 'View for: ' + form.name" />
                 </header>
                 <div class="card-content">
                     <div class="content">
@@ -113,7 +113,7 @@
                     this.form
                         .post(this.url)
                         .then((response) => {
-                            this.url = '/spell/' + response.slug;
+                            this.url = '/spell/' + response.slug + '/edit';
 
                             this.form.spell_id = response.spell_id;
                             this.form.name = response.name;
@@ -125,7 +125,9 @@
 
                             this.edit = true;
 
-                            window.history.pushState("", "", this.url);
+                          /*  window.history.pushState("", "", this.url);*/
+
+                            window.location.href=this.url;
                         });
             }
         },
