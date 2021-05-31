@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import QueryMessage from "./QueryMessageComponent";
+    import QueryMessage from "./QueryMessage";
 
     export default {
         name: "ErrorBoxComponent",

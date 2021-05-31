@@ -11,7 +11,7 @@ import axios from 'axios';
 // Some custom modules to make developing faster
 import Form from './utilities/Form';
 import TableElement from './components/base/TableElementComponent';
-import QueryMessage from './components/base/QueryMessageComponent';
+import QueryMessage from './components/base/QueryMessage';
 import ErrorBox from './components/base/ErrorBoxComponent';
 import SuccessBox from './components/base/SuccessBoxComponent';
 import DeleteModal from './components/base/DeleteModalComponent';

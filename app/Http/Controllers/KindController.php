@@ -49,7 +49,7 @@ class KindController extends Controller
     {
 
         $kind = Kind::create($request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:App\Kind,name',
             'description' => 'required'
         ]));
 

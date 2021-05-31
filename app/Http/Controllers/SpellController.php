@@ -49,7 +49,7 @@ class SpellController extends Controller
     {
 
         $spell = Spell::create($request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:App\Spell,name',
             'quote' => 'required',
             'description' => 'required',
             'kind_id' => 'required|exists:App\Kind,id'
@@ -95,7 +95,7 @@ class SpellController extends Controller
 
 
         if($spell->update($request->validate([
-            'name' => 'required',
+            'name' => 'required|exists:App\Spell,name',
             'quote' => 'required',
             'description' => 'required',
             'kind_id' => 'required|exists:App\Kind,id'
@@ -103,7 +103,7 @@ class SpellController extends Controller
             return response(['message' => "Spell successfully updated!"], 200)
                 ->header('Content-Type', 'application/json');
         else
-            abort('500');
+            abort(500);
     }
 
     /**

@@ -82,11 +82,13 @@ export default {
                     .then(response => {
                         this.url = '/kind/' + response.slug;
 
+
                         this.form.kind_id = response.kind_id;
                         this.form.name = response.name;
                         this.form.description = response.description;
 
                         this.form.noReset = ['kind_id', 'name', 'description'];
+
 
                         this.edit = true;
 

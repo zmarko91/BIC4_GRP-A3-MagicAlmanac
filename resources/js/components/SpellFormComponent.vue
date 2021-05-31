@@ -105,29 +105,30 @@
         },
         methods: {
             submit() {
-                if (this.currentSpell != undefined)
+                if (this.currentSpell != undefined) {
                     this.form
                         .put(this.url);
-                else
-                    this.form
-                        .post(this.url)
-                        .then((response) => {
-                            this.url = '/spell/' + response.slug + '/edit';
+                }
+                else {
+                        this.form
+                            .post(this.url)
+                            .then((response) => {
+                                this.url = '/spell/' + response.slug + '/edit';
 
-                            this.form.spell_id = response.spell_id;
-                            this.form.name = response.name;
-                            this.form.quote = response.quote;
-                            this.form.description = response.description;
-                            this.form.kind_id = response.kind_id;
+                               this.form.spell_id = response.spell_id;
+                                this.form.name = response.name;
+                                this.form.quote = response.quote;
+                                this.form.description = response.description;
+                                this.form.kind_id = response.kind_id;
 
-                            this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];
+                                this.form.noReset = ['spell_id', 'name', 'quote', 'description', 'kind_id'];
 
-                            this.edit = true;
+                                this.edit = true;
 
-                          /*  window.history.pushState("", "", this.url);*/
-
-                            window.location.href=this.url;
+                               window.history.pushState("", "", this.url);
+                               window.location.href=this.url;
                         });
+                }
             }
         },
         created() {
