@@ -2650,6 +2650,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpellListComponent",
   props: {
@@ -2825,6 +2826,7 @@ var currentSpells = new Object();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SpellListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SpellListComponent */ "./resources/js/components/SpellListComponent.vue");
+//
 //
 //
 //
@@ -43340,7 +43342,7 @@ var render = function() {
       _c("thead", [
         _c(
           "tr",
-          { staticClass: "title is-6" },
+          { staticClass: "title is-7" },
           [
             _c("table-element", { attrs: { "element-type": "th" } }, [
               _vm._v("Name")
@@ -43365,7 +43367,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("table-element", { attrs: { "element-type": "th" } }, [
-              _vm._v("Edit/Delete/View")
+              _vm._v("Edit/ Delete/ View")
             ])
           ],
           1
@@ -43377,7 +43379,7 @@ var render = function() {
         _vm._l(_vm.spells, function(spell) {
           return _c(
             "tr",
-            { key: spell.id },
+            { key: spell.id, staticClass: "is-6" },
             [
               _c("table-element", { attrs: { "element-type": "td" } }, [
                 _vm._v(_vm._s(spell.name))
@@ -43608,7 +43610,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
+    { staticClass: "section.is-fullwidth" },
     [
       _c("hero", { attrs: { "main-title": "Spells" } }),
       _vm._v(" "),
@@ -57545,8 +57547,8 @@ var Form = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\ADM\PhpstormProjects\BIC4_GRP-A3-MagicAlmanac\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\master\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Clarissa\Documents\FH\4.Semester\IE Information Engineering\Projekt\master\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

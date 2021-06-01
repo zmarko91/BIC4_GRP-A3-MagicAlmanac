@@ -2,19 +2,20 @@
     <div class="table-container is-fullwidth">
         <table class="table is-fullwidth is-hoverable">
             <thead>
-            <tr class="title is-6">
-                <table-element element-type="th">Name</table-element>
+            <tr class="title is-7">
+                <table-element element-type="th" >Name</table-element>
                 <table-element element-type="th">Quote</table-element>
                 <table-element element-type="th" v-if="showKind">Kind</table-element>
                 <table-element element-type="th">Created</table-element>
                 <table-element element-type="th">Modified</table-element>
-                <table-element element-type="th">Edit/Delete/View</table-element>
+                <table-element element-type="th">Edit/ Delete/ View</table-element>
+
             </tr>
             </thead>
 
 
             <tbody>
-            <tr v-for="spell in spells" :key="spell.id">
+            <tr v-for="spell in spells" :key="spell.id"  class="is-6">
                 <table-element element-type="td">{{spell.name}}</table-element>
                 <table-element element-type="td">{{spell.quote}}</table-element>
                 <table-element element-type="td" v-if="showKind">{{ spell.kind.name }}</table-element>

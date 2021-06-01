@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+
+    <div class="section.is-fullwidth">
         <hero main-title="Spells"></hero>
         <div class="columns is-multiline">
             <div class="column is-three-fifths is-offset-one-fifth">
